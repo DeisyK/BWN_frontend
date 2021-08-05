@@ -1,0 +1,22 @@
+
+.tarjeta{
+    padding: 10px;
+    margin: auto; 
+    background-color: #bdc3c7 ;
+    width: 400px;  
+    align-items: center;
+    
+
+}
+.tarjetaPersonal{
+    padding: 10px;
+    background-color: #bdc3c7 ;
+}
+img:hover{
+    transform: scale(0.9);
+    transition: all 0.2s;
+       
+}
+img{
+    border-radius: 5px;
+}
