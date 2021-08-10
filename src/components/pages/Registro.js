@@ -37,7 +37,7 @@ const Registro = (props) => {
       } else {
         const response = await axios.patch(
           `${api}login/${props.editar._id}/edit`,
-          { email: values.email, name: values.name },
+          { name: values.name },
           { headers: { token: token.getToken() } }
         );
         setLoading(false);
@@ -179,18 +179,20 @@ const Registro = (props) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          label="email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Ingrese su email",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+        {!token.getToken() ? (
+          <Form.Item
+            label="email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Ingrese su email",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        ) : null}
       </Card>
     </Form>
   );

@@ -62,7 +62,7 @@ const Barra = (props) => {
           >
             Inicio
           </Menu.Item>
-          {props.usuario ? (
+          {props.usuario && props.usuario.actividad !== 0 ? (
             <Menu.Item
               key="4"
               icon={<ContactsOutlined />}
@@ -71,7 +71,7 @@ const Barra = (props) => {
               Contactos
             </Menu.Item>
           ) : null}
-          {props.usuario ? (
+          {props.usuario && props.usuario.actividad !== 0 ? (
             <Menu.Item
               key="5"
               icon={<GroupOutlined />}
@@ -82,17 +82,19 @@ const Barra = (props) => {
           ) : null}
           {props.usuario ? (
             <SubMenu key="sub1" icon={<SettingOutlined />} title="Mi perfil">
-              <Menu.Item
-                key="6"
-                icon={<EditOutlined />}
-                onClick={() => {
-                  const user = props.usuario;
-                  props.setEditar(user);
-                  history.push("/perfil/editar");
-                }}
-              >
-                Editar perfil
-              </Menu.Item>
+              {props.usuario.actividad !== 0 ? (
+                <Menu.Item
+                  key="6"
+                  icon={<EditOutlined />}
+                  onClick={() => {
+                    const user = props.usuario;
+                    props.setEditar(user);
+                    history.push("/perfil/editar");
+                  }}
+                >
+                  Editar perfil
+                </Menu.Item>
+              ) : null}
 
               <Menu.Item
                 key="7"
@@ -125,7 +127,7 @@ const Barra = (props) => {
           />
 
           <h6 style={{ color: "#fff", margin: "auto" }}>
-            {props.usuario ? `Bienvenido ${props.usuario.name}` : null}
+            {props.usuario ? `Bienvenido ${props.usuario.nombre}` : null}
           </h6>
         </Header>
         <Content>

@@ -88,6 +88,7 @@ const EditarPerfil = (props) => {
     setCategorias(responseCategorias.data);
   };
   const edit = () => {
+    console.log(props.editar);
     if (props.editar) {
       return {
         ["name"]: props.editar.name ? props.editar.name : null,
@@ -100,10 +101,9 @@ const EditarPerfil = (props) => {
         ["category_id"]: props.editar.category_id
           ? props.editar.category_id
           : null,
-        ["birthdate"]:
-          props.editar.birthdate && !isNaN(props.editar.birthdate)
-            ? moment(props.editar.birthdate, "YYYY-MM-DD")
-            : null,
+        ["birthdate"]: props.editar.birthdate
+          ? moment(new Date(props.editar.birthdate), "YYYY-MM-DD")
+          : null,
       };
     }
   };

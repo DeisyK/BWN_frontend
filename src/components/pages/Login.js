@@ -6,6 +6,7 @@ import "../css/login.css";
 import api from "../../assets/utils";
 import axios from "axios";
 import token from "../../assets/token";
+import { decodeToken } from "react-jwt";
 
 const Login = (props) => {
   const [errores, setErrores] = useState(undefined);
@@ -28,9 +29,13 @@ const Login = (props) => {
       }, 7000);
     }
     if (response.data.token) {
+      const myDecodedToken = decodeToken(response.data.token);
+      props.setUsuario(myDecodedToken);
       token.setToken(response.data.token);
       props.setToken(response.data.token);
-      history.push("/");
+      myDecodedToken.actividad === 0
+        ? history.push("/perfil/password")
+        : history.push("/Contactos");
     }
   };
 

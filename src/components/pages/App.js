@@ -1,93 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Login from "./Login";
+import { isExpired, decodeToken } from "react-jwt";
 import RecuperarPw from "./RecuperarPw";
 import Registro from "./Registro";
-import Miperfil from "./Miperfil";
-import EditarPerfil from "./EditarPerfil";
-import Contactos from "./Contactos";
-import Categorias from "./Categorias";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Inicio from "./Inicio";
-import DetalleContacto from "./DetalleContacto";
-import AgregarCategoria from "./AgregarCategoria";
-import DetalleCategoria from "./DetalleCategoria";
 import Barra from "./Barra";
 import toke from "../../assets/token";
-import axios from "axios";
-import api from "../../assets/utils";
-import CambiarPassword from "./CambiarPassword";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   const [token, setToken] = useState(null);
   const [editar, setEditar] = useState(undefined);
   const [usuario, setUsuario] = useState(undefined);
   const [errores, setErrores] = useState(undefined);
+  const myDecodedToken = decodeToken(toke.getToken());
+  const isMyTokenExpired = isExpired(toke.getToken());
 
-  const PrivateRoute = () => {
-    if (usuario) {
-      return (
-        <>
-          <Route path="/perfil/editar">
-            <Registro
-              editar={editar}
-              setEditar={setEditar}
-              setToken={setToken}
-              usuario={usuario}
-              setUsuario={setUsuario}
-            />
-          </Route>
-          <Route path="/Miperfil" component={Miperfil}>
-            <Miperfil />
-          </Route>
-          <Route path="/EditarPerfil/:id">
-            <EditarPerfil
-              editar={editar}
-              setEditar={setEditar}
-              token={token}
-            ></EditarPerfil>
-          </Route>
-          <Route path="/crear-contacto">
-            <EditarPerfil />
-          </Route>
-          <Route path="/:id/detalle-contacto">
-            <DetalleContacto editar={editar} setEditar={setEditar} />
-          </Route>
-          <Route path="/Contactos">
-            <Contactos editar={editar} setEditar={setEditar} token={token} />
-          </Route>
-          <Route path="/Categorias">
-            <Categorias editar={editar} setEditar={setEditar} />
-          </Route>
-          <Route path="/categoria/agregar">
-            <AgregarCategoria />
-          </Route>
-          <Route path="/categoria/:id/editar">
-            <AgregarCategoria editar={editar} setEditar={setEditar} />
-          </Route>
-          <Route path="/categoria/:id/detalle">
-            <DetalleCategoria editar={editar} setEditar={setEditar} />
-          </Route>
-          <Route path="/perfil/password">
-            <CambiarPassword
-              exact
-              setToken={setToken}
-              setUsuario={setUsuario}
-            />
-          </Route>
-        </>
-      );
+  const init = async () => {
+    if (!isMyTokenExpired && myDecodedToken) {
+      setUsuario(myDecodedToken);
     } else {
-      return <Redirect to={"/login"} />;
+      setToken(null);
+      setUsuario(undefined);
+      toke.removeToken();
     }
   };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   const Rutas = () => (
     <div>
       <Switch>
         <Route exact path="/" component={Inicio} />
         <Route path="/login">
-          <Login token={token} setToken={setToken} />
+          <Login
+            token={token}
+            setToken={setToken}
+            usuario={usuario}
+            setUsuario={setUsuario}
+          />
         </Route>
 
         <Route path="/RecuperarPw">
@@ -96,35 +51,17 @@ const App = () => {
         <Route path="/Registro">
           <Registro />
         </Route>
-        <PrivateRoute />
+        <PrivateRoute
+          editar={editar}
+          setEditar={setEditar}
+          setToken={setToken}
+          usuario={usuario}
+          setUsuario={setUsuario}
+        />
       </Switch>
     </div>
   );
 
-  const init = async () => {
-    if (toke.getToken()) {
-      try {
-        const response = await axios.get(`${api}login/get-usuario`, {
-          headers: { token: toke.getToken() },
-        });
-        if (response.data._id) {
-          setUsuario(response.data);
-        }
-        if (response.data.error) {
-          toke.removeToken();
-          setErrores(response.data.error);
-          setTimeout(() => setErrores(undefined), 5000);
-        }
-      } catch (e) {
-        toke.removeToken();
-        console.log(e);
-      }
-    }
-  };
-
-  useEffect(() => {
-    init();
-  }, []);
   useEffect(() => {
     init();
   }, [token]);
@@ -140,9 +77,7 @@ const App = () => {
       setErrores={setErrores}
       editar={editar}
       setEditar={setEditar}
-    >
-      <Rutas />
-    </Barra>
+    />
   );
 };
 export default App;
