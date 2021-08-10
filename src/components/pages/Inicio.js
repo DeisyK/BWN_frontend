@@ -8,35 +8,35 @@ function Inicio() {
   useEffect(() => {
     setIntegrantes([
       {
-        foto: "https://i.ibb.co/qrcp2WS/fotodeisy1.jpg",
+        foto: "https://i.ibb.co/j6g8T3J/Whats-App-Image-2021-08-09-at-5-08-10-PM.jpg",
         nombre: "Deisy Katherine Pineda",
         rol: "Scrum Master y gestor de proyectos",
         telefono: 3133523752,
         Email: "kte_0330@hotmail.com",
       },
       {
-        foto: "https://i.ibb.co/0q5GZ45/fotonelson.jpg",
+        foto: "https://i.ibb.co/tzvkM78/nelson.jpg",
         nombre: "Nelson Ricardo Hurtado F.",
         rol: "DBA (Persistencia)",
         telefono: 3102215050,
         Email: "lf62@hotmail.com",
       },
       {
-        foto: "https://i.ibb.co/hsTQ8GQ/fotojair.png",
+        foto: "https://i.ibb.co/0Zym1xf/jair.jpg",
         nombre: "Hector Jair Fonseca Pinto",
         rol: "Backend",
         telefono: 56932679167,
         Email: "jairfonseca64@yahoo.es",
       },
       {
-        foto: "https://i.ibb.co/f0tK9yZ/fotocarlos.png",
+        foto: "https://i.ibb.co/2ZtLdJk/carlos.png",
         nombre: "Carlos Andrés Gutiérrez Cruz",
         rol: "Testing",
         telefono: 3153011375,
         Email: "contacto10@gmail.com",
       },
       {
-        foto: "https://i.ibb.co/ngcpjvW/fotowalter1.jpg",
+        foto: "https://i.ibb.co/VgX9kR4/walter.jpg",
         nombre: "Walter Gonzalez Rincon",
         rol: "Frontend",
         telefono: 3215527911,
