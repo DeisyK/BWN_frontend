@@ -11,7 +11,6 @@ import Registro from "./Registro";
 import token from "../../assets/token";
 
 const PrivateRoute = (props) => {
-  console.log(props.usuario);
   if (token.getToken() || props.usuario) {
     return (
       <>

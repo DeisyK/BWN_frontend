@@ -87,26 +87,6 @@ const EditarPerfil = (props) => {
     setPaises(responsePaises.data.map((pais) => pais.name));
     setCategorias(responseCategorias.data);
   };
-  const edit = () => {
-    console.log(props.editar);
-    if (props.editar) {
-      return {
-        ["name"]: props.editar.name ? props.editar.name : null,
-        ["surname"]: props.editar.surname ? props.editar.surname : null,
-        ["cellphone"]: props.editar.cellphone ? props.editar.cellphone : null,
-        ["address"]: props.editar.address ? props.editar.address : null,
-        ["email"]: props.editar.email ? props.editar.email : null,
-        ["notes"]: props.editar.notes ? props.editar.notes : null,
-        ["country"]: props.editar.country ? props.editar.country : "Colombia",
-        ["category_id"]: props.editar.category_id
-          ? props.editar.category_id
-          : null,
-        ["birthdate"]: props.editar.birthdate
-          ? moment(new Date(props.editar.birthdate), "YYYY-MM-DD")
-          : null,
-      };
-    }
-  };
 
   useEffect(() => {
     init();
@@ -131,7 +111,21 @@ const EditarPerfil = (props) => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        initialValues={edit()}
+        initialValues={{
+          ["name"]: props.editar.name ? props.editar.name : null,
+          ["surname"]: props.editar.surname ? props.editar.surname : null,
+          ["cellphone"]: props.editar.cellphone ? props.editar.cellphone : null,
+          ["address"]: props.editar.address ? props.editar.address : null,
+          ["email"]: props.editar.email ? props.editar.email : null,
+          ["notes"]: props.editar.notes ? props.editar.notes : null,
+          ["country"]: props.editar.country ? props.editar.country : "Colombia",
+          ["category_id"]: props.editar.category_id
+            ? props.editar.category_id
+            : null,
+          ["birthdate"]: props.editar.birthdate
+            ? moment(new Date(props.editar.birthdate), "YYYY-MM-DD")
+            : null,
+        }}
       >
         <Form.Item
           label="Nombre"

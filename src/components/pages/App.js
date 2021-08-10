@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Login from "./Login";
 import { isExpired, decodeToken } from "react-jwt";
 import RecuperarPw from "./RecuperarPw";
@@ -30,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     init();
-  }, []);
+  }, [token]);
 
   const Rutas = () => (
     <div>
@@ -61,10 +61,6 @@ const App = () => {
       </Switch>
     </div>
   );
-
-  useEffect(() => {
-    init();
-  }, [token]);
 
   return (
     <Barra

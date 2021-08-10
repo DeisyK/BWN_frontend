@@ -73,9 +73,9 @@ const CambiarPassword = (props) => {
             ← Volver
           </Button>,
         ]}
-        labelCol={{
+        /*labelCol={{
           span: 8,
-        }}
+        }}*/
         wrapperCol={{
           span: 16,
         }}

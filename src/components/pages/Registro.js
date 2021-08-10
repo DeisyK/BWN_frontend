@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, BrowserRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Alert, Card, Form, Input, Button, Modal } from "antd";
 import axios from "axios";
 import "../css/registro.css";
