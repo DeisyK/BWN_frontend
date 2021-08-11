@@ -114,11 +114,10 @@ const Contactos = (props) => {
       }
       if (response.data.length > 0) {
         response.data.map((contact) => {
-          contact.birthdate = new Date(contact.birthdate).toLocaleDateString();
+          contact.cumple = new Date(contact.birthdate).toLocaleDateString();
           const edad =
-            new Date().getFullYear() -
-            new Date(contact.birthdate).getFullYear();
-          contact.age = contact.birthdate
+            new Date().getFullYear() - new Date(contact.cumple).getFullYear();
+          contact.age = contact.cumple
             ? !isNaN(edad)
               ? edad
               : "Sin datos"
