@@ -87,7 +87,25 @@ const EditarPerfil = (props) => {
     setPaises(responsePaises.data.map((pais) => pais.name));
     setCategorias(responseCategorias.data);
   };
-
+  const edit = () => {
+    if (props.editar) {
+      return {
+        ["name"]: props.editar.name ? props.editar.name : null,
+        ["surname"]: props.editar.surname ? props.editar.surname : null,
+        ["cellphone"]: props.editar.cellphone ? props.editar.cellphone : null,
+        ["address"]: props.editar.address ? props.editar.address : null,
+        ["email"]: props.editar.email ? props.editar.email : null,
+        ["notes"]: props.editar.notes ? props.editar.notes : null,
+        ["country"]: props.editar.country ? props.editar.country : "Colombia",
+        ["category_id"]: props.editar.category_id
+          ? props.editar.category_id
+          : null,
+        ["birthdate"]: props.editar.birthdate
+          ? moment(new Date(props.editar.birthdate), "YYYY-MM-DD")
+          : null,
+      };
+    }
+  };
   useEffect(() => {
     init();
   }, []);
@@ -111,21 +129,7 @@ const EditarPerfil = (props) => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        initialValues={{
-          ["name"]: props.editar.name ? props.editar.name : null,
-          ["surname"]: props.editar.surname ? props.editar.surname : null,
-          ["cellphone"]: props.editar.cellphone ? props.editar.cellphone : null,
-          ["address"]: props.editar.address ? props.editar.address : null,
-          ["email"]: props.editar.email ? props.editar.email : null,
-          ["notes"]: props.editar.notes ? props.editar.notes : null,
-          ["country"]: props.editar.country ? props.editar.country : "Colombia",
-          ["category_id"]: props.editar.category_id
-            ? props.editar.category_id
-            : null,
-          ["birthdate"]: props.editar.birthdate
-            ? moment(new Date(props.editar.birthdate), "YYYY-MM-DD")
-            : null,
-        }}
+        initialValues={edit()}
       >
         <Form.Item
           label="Nombre"
@@ -169,7 +173,17 @@ const EditarPerfil = (props) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item label="Correo electronico" name={"email"}>
+        <Form.Item
+          label="Correo electronico"
+          name={"email"}
+          rules={[
+            {
+              type: "email",
+              required: true,
+              message: "Ingrese el email del contacto",
+            },
+          ]}
+        >
           <Input style={{ width: 400 }} />
         </Form.Item>
         <Form.Item label="Categoria" name={"category_id"}>

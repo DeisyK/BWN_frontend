@@ -3,7 +3,6 @@ import { Layout, Menu, Breadcrumb, Alert } from "antd";
 import {
   LoginOutlined,
   RollbackOutlined,
-  FileOutlined,
   LogoutOutlined,
   ContactsOutlined,
   GroupOutlined,
@@ -87,6 +86,7 @@ const Barra = (props) => {
                   key="6"
                   icon={<EditOutlined />}
                   onClick={() => {
+                    console.log(props.usuario);
                     const user = props.usuario;
                     props.setEditar(user);
                     history.push("/perfil/editar");

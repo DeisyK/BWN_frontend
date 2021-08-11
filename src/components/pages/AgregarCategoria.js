@@ -57,7 +57,16 @@ const EditarPerfil = (props) => {
       history.push(`/Categorias`);
     }
   };
-
+  const edit = () => {
+    if (props.editar) {
+      return {
+        ["name"]: props.editar.name ? props.editar.name : null,
+        ["description"]: props.editar.description
+          ? props.editar.description
+          : null,
+      };
+    }
+  };
   const onFinishFailed = (errorInfo) => {};
 
   useEffect(() => {
@@ -81,12 +90,7 @@ const EditarPerfil = (props) => {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        initialValues={{
-          ["name"]: props.editar.name ? props.editar.name : null,
-          ["description"]: props.editar.description
-            ? props.editar.description
-            : null,
-        }}
+        initialValues={edit()}
       >
         <Form.Item
           label="Nombre"

@@ -35,8 +35,9 @@ const Registro = (props) => {
           setTimeout(() => setError(undefined), 5000);
         }
       } else {
+        console.log(props.editar);
         const response = await axios.patch(
-          `${api}login/${props.editar._id}/edit`,
+          `${api}login/${props.editar.id}/edit`,
           { name: values.name },
           { headers: { token: token.getToken() } }
         );
@@ -45,8 +46,6 @@ const Registro = (props) => {
           setMessage(response.data.message);
           token.setToken(response.data.token);
           props.setToken(response.data.token);
-
-          history.push("/");
         }
         if (response.data.error) {
           setError(response.data.error);
@@ -90,8 +89,7 @@ const Registro = (props) => {
   const edit = () => {
     if (props.editar) {
       return {
-        ["name"]: props.editar.name ? props.editar.name : null,
-        ["email"]: props.editar.email ? props.editar.email : null,
+        ["name"]: props.editar.nombre ? props.editar.nombre : null,
       };
     }
   };
