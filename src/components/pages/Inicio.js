@@ -59,8 +59,7 @@ function Inicio() {
           <Card.Text>
             Aplicación Web que presta el servicio de una agenda virtual donde el
             usuario podrá encontrar sus contactos de manera fácil, con
-            información que considere importante y su respectiva foto donde
-            podrá identificarlo.
+            información que considere importante.
           </Card.Text>
         </Card.Body>
       </Card>
