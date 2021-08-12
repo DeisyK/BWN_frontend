@@ -104,7 +104,11 @@ const DetalleCategoria = (props) => {
                   <p>Descripción: {data.categoria.description}</p>
                 ) : null}
                 {data.contactos.length > 0 ? (
-                  <Contactos data={data.contactos} />
+                  <Contactos
+                    data={data.contactos}
+                    editar={props.editar}
+                    setEditar={props.setEditar}
+                  />
                 ) : (
                   <Alert
                     message={"No tienes contactos guardados en esta categoria"}
