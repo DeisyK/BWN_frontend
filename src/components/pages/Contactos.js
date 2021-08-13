@@ -115,6 +115,7 @@ const Contactos = (props) => {
       if (response.data.length > 0) {
         response.data.map((contact) => {
           contact.cumple = new Date(contact.birthdate).toLocaleDateString();
+          console.log(contact.cumple);
           const edad =
             new Date().getFullYear() - new Date(contact.cumple).getFullYear();
           contact.age = contact.cumple
@@ -128,9 +129,23 @@ const Contactos = (props) => {
         setData(response.data);
       }
     } else {
-      setData(props.data);
+      if (props.data.length > 0) {
+        props.data.map((contact) => {
+          contact.cumple = new Date(contact.birthdate).toLocaleDateString();
+          console.log(contact.cumple);
+          const edad =
+            new Date().getFullYear() - new Date(contact.cumple).getFullYear();
+          contact.age = contact.cumple
+            ? !isNaN(edad)
+              ? edad
+              : "Sin datos"
+            : "Sin datos";
+          return contact;
+        });
+        setData(props.data);
+      }
+      loading();
     }
-    loading();
   };
   const loading = () => {
     setCargando(!cargando);
@@ -185,4 +200,5 @@ const Contactos = (props) => {
     </div>
   );
 };
+
 export default Contactos;
